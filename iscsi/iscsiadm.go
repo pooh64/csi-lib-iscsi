@@ -46,20 +46,20 @@ func iscsiCmd(args ...string) (string, error) {
 	err := cmd.Start()
 	if err != nil {
 		// This is usually a cmd not found so we'll set our own error here
-		formattedOutput := strings.Replace(string(stdout.Bytes()), "\n", "", -1)
+		formattedOutput := strings.Replace(stdout.String()), "\n", "", -1)
 		iscsiadmError = fmt.Errorf("iscsiadm error: %s (%s)", formattedOutput, err.Error())
 
 	} else {
 		err = cmd.Wait()
 		if err != nil {
-			formattedOutput := strings.Replace(string(stdout.Bytes()), "\n", "", -1)
+			formattedOutput := strings.Replace(stdout.String()), "\n", "", -1)
 			iscsiadmError = fmt.Errorf("iscsiadm error: %s (%s)", formattedOutput, err.Error())
 
 		}
 	}
 
-	iscsiadmDebug(string(stdout.Bytes()), iscsiadmError)
-	return string(stdout.Bytes()), iscsiadmError
+	iscsiadmDebug(stdout.String()), iscsiadmError)
+	return stdout.String()), iscsiadmError
 }
 
 func iscsiadmDebug(output string, cmdError error) {
